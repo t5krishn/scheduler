@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-const history= [];
+
 
 export default function useVisualMode(intial) {
     const [mode, setMode] = useState(intial);
-    const [history, setHistory] = useState({ modes: ["FIRST"], index: 0 });
+    const [history, setHistory] = useState({ modes: [mode], index: 0 });
 
     const transition = (newMode, replace) => {
         const newHistory = { ...history, modes:[...history.modes] };
@@ -12,10 +12,8 @@ export default function useVisualMode(intial) {
         }
         
         newHistory.modes.push(newMode);
-        newHistory.index = history.modes.length - 1;
-        
-        // console.log(histy)
-        setMode(newMode);
+        newHistory.index = newHistory.modes.length - 1;
+        setMode(newMode)
         setHistory(prev => ({ ...prev, modes: newHistory.modes, index: newHistory.index }));
     };
 
@@ -23,8 +21,10 @@ export default function useVisualMode(intial) {
         const newHistory = { ...history, modes:[...history.modes] };
 
         if (newHistory.index > 0) {
-            newHistory.index = newHistory.index - 1;
-            setMode(newHistory.modes[history.index]);
+            newHistory.modes.pop();
+            newHistory.index = newHistory.modes.length - 1;
+            setMode(newHistory.modes[newHistory.index]);
+            setHistory(prev => ({ ...prev, modes: newHistory.modes, index: newHistory.index }));
         }
     };
 

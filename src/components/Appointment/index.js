@@ -32,14 +32,14 @@ export default function Appointment(props) {
             props.id, {student: name, interviewer}
         )
         .then(() => transition(SHOW))
-        .catch(()=> transition(ERROR_SAVE));
+        .catch(()=> transition(ERROR_SAVE, true));
     };
 
     function deleteApp() {
-        transition(DELETING);
-        props.deleteInterview(props.id)
+        transition(DELETING, true);
+        props.cancelInterview(props.id)
             .then(() => transition(EMPTY))
-            .catch(()=> transition(ERROR_DELETE));
+            .catch(()=> transition(ERROR_DELETE, true));
     }
 
 
@@ -73,14 +73,18 @@ export default function Appointment(props) {
             { mode === ERROR_SAVE &&
                     <Error 
                         message = "Saving failed. Server Error"
-                        onClose = {() => {transition(EDIT)}}
+                        onClose = {() => {
+                            // transition(EDIT);
+                            back();
+                        }}
                     />
             }
             { mode === ERROR_DELETE &&
                     <Error 
                         message = "Deleting failed. Server Error."
                         onClose = {() => {
-                            transition(SHOW);
+                            // transition(SHOW);
+                            back();
                         }}
                     />
             }
