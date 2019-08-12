@@ -1,4 +1,4 @@
-import React, { useState,  useReducer } from 'react';
+import React, { useState,  useReducer, useEffect } from 'react';
 import axios from 'axios';
 
 export default function useApplicationData() {
@@ -49,46 +49,52 @@ export default function useApplicationData() {
         appointments: {},
         interviewers: {}
     });
+    
+    const refresh = () => {
+        Promise.all([
+            axios.get(`http://localhost:3001/api/days`),
+            axios.get(`http://localhost:3001/api/appointments`),
+            axios.get(`http://localhost:3001/api/interviewers`)
+        ]).then((resp) => {
+            dispatch({
+                type: SET_APPLICATION_DATA,
+                days: resp[0].data,
+                appointments: resp[1].data,
+                interviewers: resp[2].data
+            });
+        })
+    }
 
-
-    Promise.all([
-        axios.get(`http://localhost:3001/api/days`),
-        axios.get(`http://localhost:3001/api/appointments`),
-        axios.get(`http://localhost:3001/api/interviewers`)
-    ]).then((resp) => {
-        dispatch({
-            type: SET_APPLICATION_DATA,
-            days: resp[0].data,
-            appointments: resp[1].data,
-            interviewers: resp[2].data
-        });
-    })
-
+    useEffect(() => {
+        refresh();
+    }, []);
 
     const setDay = day => (dispatch({ type: SET_DAY, day }));
 
     function bookInterview(id, interview) {
 
         return axios.put(`http://localhost:3001/api/appointments/${id}`, { interview })
-            .then(() =>
+            .then(() => {
                 dispatch({
                     type: SET_INTERVIEW,
                     id,
                     interview
                 })
-            );
+                refresh();
+            });
     };
 
     function cancelInterview(id) {
 
         return axios.delete(`http://localhost:3001/api/appointments/${id}`)
-            .then(() =>
+            .then(() => {
                 dispatch({
                     type: SET_INTERVIEW,
                     id,
                     interview: null
                 })
-            );
+                refresh();
+            });
     }
 
     return { state, setDay, bookInterview, cancelInterview };
