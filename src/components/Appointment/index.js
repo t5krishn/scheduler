@@ -24,7 +24,7 @@ export default function Appointment(props) {
     const DELETING = "DELETING";
 
     let initMode = (props.interview) ? SHOW : EMPTY;
-    const [ mode, transition, back ] = useVisualMode(initMode);
+    const { mode, transition, back } = useVisualMode(initMode);
 
     function save(name, interviewer) {
         transition(SAVING);
@@ -44,7 +44,7 @@ export default function Appointment(props) {
 
 
     return  (
-        <article className="appointment">
+        <article className="appointment" data-testid="appointment">
 
             <Header time={props.time} />
             
