@@ -55,6 +55,7 @@ export default function useApplicationData() {
       axios.get(`/api/appointments`),
       axios.get(`/api/interviewers`)
     ]).then(resp => {
+      console.log(resp);
       dispatch({
         type: SET_APPLICATION_DATA,
         days: resp[0].data,
