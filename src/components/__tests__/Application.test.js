@@ -26,7 +26,7 @@ describe ("Application", ()=>{
     render(<Application />);
   });
 
-  it("defaults to Monday and changes the schedule when a new day is selected", () => {
+  xit("defaults to Monday and changes the schedule when a new day is selected", () => {
     const { getByText } = render(<Application />);
   
     return waitForElement(() => getByText("Monday")).then(() => {
@@ -36,7 +36,7 @@ describe ("Application", ()=>{
   });
 
 
-  it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
+  xit("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
     const { container } = render(<Application />);
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
@@ -64,7 +64,7 @@ describe ("Application", ()=>{
     });
 
 
-    it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
+    xit("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
       // 1. Render the Application.
       const { container } = render(<Application />);
     
@@ -102,7 +102,7 @@ describe ("Application", ()=>{
 
 
     /* test number five */
-    it("shows the save error when failing to save an appointment", async () => {
+    xit("shows the save error when failing to save an appointment", async () => {
       
       axios.put.mockRejectedValueOnce();
       
@@ -129,7 +129,7 @@ describe ("Application", ()=>{
     });
 
     // test number six
-    it("shows the delete error when failing to delete an existing appointment", async () => {
+    xit("shows the delete error when failing to delete an existing appointment", async () => {
 
       axios.delete.mockRejectedValue();
 
