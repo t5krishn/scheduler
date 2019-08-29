@@ -5,11 +5,13 @@
   "dependencies": {
     "axios": "^0.19.0",
     "classnames": "^2.2.6",
+    "cypress": "^3.4.1",
     "normalize.css": "^8.0.1",
     "react": "^16.9.0-alpha.0",
     "react-dom": "^16.9.0-alpha.0",
     "react-hooks-testing-library": "^0.6.0",
-    "react-scripts": "3.0.0"
+    "react-scripts": "3.0.0",
+    "save-dev": "^2.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -17,7 +19,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 8080 -s public --ci",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "cypress": "cypress open -P ."
   },
   "browserslist": {
     "production": [
@@ -40,7 +43,6 @@
     "@storybook/react": "^5.0.10",
     "@testing-library/jest-dom": "^4.0.0",
     "@testing-library/react": "^8.0.7",
-    "babel-loader": "^8.0.5",
     "node-sass": "^4.11.0",
     "prop-types": "^15.7.2",
     "react-test-renderer": "^16.8.6"
@@ -50,5 +52,5 @@
       "<rootDir>/node_modules/"
     ]
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "https://t-scheduler-api.herokuapp.com"
 }
