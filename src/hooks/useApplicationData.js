@@ -51,9 +51,9 @@ export default function useApplicationData() {
 
   const refresh = () => {
     Promise.all([
-      axios.get(`http://localhost:3001/api/days`),
-      axios.get(`http://localhost:3001/api/appointments`),
-      axios.get(`http://localhost:3001/api/interviewers`)
+      axios.get(`/api/days`),
+      axios.get(`/api/appointments`),
+      axios.get(`/api/interviewers`)
     ]).then(resp => {
       dispatch({
         type: SET_APPLICATION_DATA,
@@ -72,7 +72,7 @@ export default function useApplicationData() {
 
   function bookInterview(id, interview) {
     return axios
-      .put(`http://localhost:3001/api/appointments/${id}`, { interview })
+      .put(`/api/appointments/${id}`, { interview })
       .then(() => {
         dispatch({
           type: SET_INTERVIEW,
@@ -85,7 +85,7 @@ export default function useApplicationData() {
 
   function cancelInterview(id) {
     return axios
-      .delete(`http://localhost:3001/api/appointments/${id}`)
+      .delete(`/api/appointments/${id}`)
       .then(() => {
         dispatch({
           type: SET_INTERVIEW,
